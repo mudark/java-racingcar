@@ -26,10 +26,8 @@ class ApplicationTest extends NsTest {
 
     @Test
     void 이름에_대한_예외_처리() {
-        assertSimpleTest(() ->
-                assertThatCode(() -> runException("pobi,javaji", "1"))
-                        .doesNotThrowAnyException()
-        );
+        assertThatThrownBy(() -> runException("pobi,javaji", "1"))
+                .isInstanceOf(CarNameInputException.class);
     }
 
     @Override

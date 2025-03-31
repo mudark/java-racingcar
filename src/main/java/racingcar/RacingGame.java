@@ -2,10 +2,10 @@ package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class RacingCar {
+public class RacingGame {
     Car[] car;
 
-    public RacingCar(String input) {
+    public RacingGame(String input) {
         String carName[] = input.split(",");
         this.car=new Car[carName.length];
 
@@ -13,6 +13,14 @@ public class RacingCar {
             this.car[i]=new Car(carName[i]);
             //assertThat(car[i].name.length()).isBetween(1,5);
             // 차 이름 글자수 확인
+            this.checkSameCarName(i);//차 이름 중복 확인
+        }
+    }
+    public void checkSameCarName(int i){
+        for(int j=0;j<i;j++){
+            if(this.car[j].name.equals(this.car[i].name)){
+                throw new CarNameInputException("차 이름이 중복됩니다.");
+            }
         }
     }
     public void runRace(int n) {
@@ -39,13 +47,12 @@ public class RacingCar {
                 winnerDistance=car[i].distance;
             }
         }
-        String winnerList="";
+        StringBuilder winnerList=new StringBuilder();
         for(int i=0;i<car.length;i++) {
             if (winnerDistance == car[i].distance) {
-                winnerList=winnerList.concat(car[i].name);
-                winnerList=winnerList.concat(", ");
+                winnerList.append(car[i].name).append(", ");
             }
         }
-        return winnerList;
+        return winnerList.toString();
     }
 }

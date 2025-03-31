@@ -6,12 +6,15 @@ public class Car {
     String name;
     int distance;
 
-    public Car(String name) {
-        name=name.replaceAll(" ","");
+    public Car(String name) throws CarNameInputException{
+        name=name.trim();
         if(name.length()>5||name.length()<1) {
             System.out.println("자동차 이름은 1글자 이상, 5글자 이하여야 합니다.");
-            throw new IllegalArgumentException("에러 : 자동차 이름 글자수 초과");
+            throw new CarNameInputException("잘못된 값이 입력되어서 종료합니다.");
         }
+        /*if(name.indexOf(":")==-1){
+            throw new CarNameInputException("':'는 포함하면 안됩니다.");
+        }*/
         this.name=name;
         this.distance=0;
     }
